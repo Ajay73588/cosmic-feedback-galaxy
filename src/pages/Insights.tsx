@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, TooltipProps } from 'recharts';
 import { Star, Filter, ArrowUpDown, BarChart3, PieChart as PieChartIcon } from 'lucide-react';
 import StarField from '@/components/StarField';
 import BackgroundPlanets from '@/components/BackgroundPlanets';
@@ -327,7 +327,10 @@ const Insights = () => {
                             <YAxis type="category" dataKey="name" />
                             <Tooltip 
                               contentStyle={{ backgroundColor: '#1a1f2c', border: '1px solid #2d3748', borderRadius: '0.5rem' }}
-                              formatter={(value) => [`${value.toFixed(1)} / 5`, 'Rating']}
+                              formatter={(value: number | string) => {
+                                const numValue = typeof value === 'number' ? value : parseFloat(value);
+                                return [`${numValue.toFixed(1)} / 5`, 'Rating'];
+                              }}
                             />
                             <Bar dataKey="value" fill="#4FD1C5" />
                           </BarChart>
