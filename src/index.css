@@ -1,92 +1,39 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
+    --background: 225 33% 7%;
     --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
+    
+    --card: 228 9% 11%;
     --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
+    
+    --popover: 228 9% 11%;
     --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
+    
+    --primary: 252 59% 54%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 217 33% 17%;
     --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
+    
+    --muted: 217 33% 17%;
     --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
+    
+    --accent: 217 33% 17%;
     --accent-foreground: 210 40% 98%;
-
+    
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
+    
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 224.3 76.3% 48%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --radius: 0.75rem;
   }
 }
 
@@ -94,8 +41,104 @@
   * {
     @apply border-border;
   }
-
   body {
-    @apply bg-background text-foreground;
+    @apply bg-space-gradient text-foreground antialiased;
+    background-attachment: fixed;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply backdrop-blur-lg bg-white/5 border border-white/10 shadow-sm;
+  }
+  
+  .star-field {
+    @apply relative overflow-hidden;
+  }
+  
+  .star-field::before {
+    content: '';
+    @apply absolute inset-0 bg-star-field opacity-50;
+    background-size: 200px 200px;
+  }
+  
+  .text-glow {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 15px rgba(128, 90, 213, 0.3);
+  }
+  
+  .star {
+    @apply absolute rounded-full;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.4), 0 0 20px 4px rgba(128, 90, 213, 0.2);
+  }
+  
+  .planet {
+    @apply absolute rounded-full bg-gradient-to-br shadow-lg;
+  }
+  
+  .input-cosmic {
+    @apply bg-cosmic-800/50 border-cosmic-700 focus:border-nebula-500 focus:ring-1 focus:ring-nebula-500 placeholder:text-cosmic-400;
+  }
+  
+  .btn-primary-cosmic {
+    @apply bg-nebula-600 hover:bg-nebula-700 text-white font-medium transition-all duration-200 shadow-lg hover:shadow-nebula-500/30 focus:ring-2 focus:ring-nebula-500/50 focus:ring-offset-2 focus:ring-offset-cosmic-950;
+  }
+  
+  .card-cosmic {
+    @apply glass rounded-xl overflow-hidden transition-all duration-300 hover:shadow-nebula-500/20 hover:border-nebula-500/30;
+  }
+}
+
+/* Star animation */
+.star-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 4px 1px rgba(255, 255, 255, 0.4);
+  animation: twinkle var(--duration, 4s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+.shooting-star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background-color: white;
+  box-shadow: 0 0 4px 1px rgba(255, 255, 255, 0.8), 0 0 8px 2px rgba(128, 90, 213, 0.5);
+  border-radius: 50%;
+  animation: shoot 8s linear infinite;
+  animation-delay: var(--delay, 0s);
+  opacity: 0;
+  z-index: -1;
+}
+
+@keyframes shoot {
+  0% {
+    transform: translate(calc(0vw + var(--offset-x, 0px)), calc(0vh + var(--offset-y, 0px)));
+    opacity: 0;
+  }
+  1% {
+    opacity: 1;
+  }
+  10% {
+    transform: translate(calc(100vw + var(--offset-x, 0px)), calc(100vh + var(--offset-y, 0px)));
+    opacity: 0;
+  }
+  100% {
+    transform: translate(calc(100vw + var(--offset-x, 0px)), calc(100vh + var(--offset-y, 0px)));
+    opacity: 0;
   }
 }
